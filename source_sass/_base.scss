@@ -1,1 +1,60 @@
-// Add any custom Sass & CSS here
+h1, h2, h3, h4, h5, h6, p, a, li, label {
+    font-family: $primary-font;
+}
+
+#gallery-view {
+    img {
+        width: 180px;
+        height: 255px;
+    }
+
+    img:hover {
+        border: 4px solid #B8C99D; 
+    }
+
+    .column {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}
+
+#list-view {
+    img {
+        width: 120px;
+        height: 163px;
+    }
+
+    .media-object-section {
+        padding-left: 1rem; 
+        padding-top: 1rem;
+    }
+
+    .media-object {
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .media-object:hover {
+        background: #B8C99D;
+    }
+}
+
+#list-ui {
+    label {
+        width: 40%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    fieldset label {
+        margin-left: 10px;
+        margin-right: 10px;
+        width: 20%;
+    }
+
+}
+
+.active {
+    background: #B8C99D;
+}

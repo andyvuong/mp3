@@ -1,0 +1,40 @@
+
+<div ng-controller='listController'> 
+    <div id="list-ui" class="row text-center">
+        <label>Search:
+            <input ng-model='query' type="text" placeholder="Search for Movies">
+        </label>
+        <label>Sort by:
+            <select ng-model='sortSelection'>
+                <option value="title">Title</option>
+                <option value="rank">Rank</option>
+            </select>
+        </label>
+        <label>Order by:
+            <fieldset class="small-12 columns">
+                <input ng-click='goOrderBy("ascending")' type="radio" name="order" value="ascending" id="ascendingButton" required><label for="ascendingButton">ascending</label>
+                <input ng-click='goOrderBy("descending")' type="radio" name="order" value="descending" id="descendingButton"><label for="descendingButton">descending</label>
+            </fieldset>
+        </label>
+    </div>
+    <div id="list-view" class="row">
+        <div class="media-object" ng-repeat='data in results | orderBy: predicate : reverse'>
+            <div class="media-object-section">
+                <div class="thumbnail">
+                    <img src= "{{data.img}}">
+                </div>
+            </div>
+            <div class="media-object-section">
+                <h4>{{data.title}}</h4>
+                <ul class="menu vertical">
+                    <li>Rank: {{data.rank}}</li>
+                    <li>Rated: {{data.rated}}</li>
+                </ul>
+                <ul class="menu simple">
+                    <li>Genres:</li>
+                    <li ng-repeat="genre in data.genre">{{genre}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

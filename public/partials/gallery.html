@@ -1,0 +1,14 @@
+
+<div ng-controller='galleryController'> 
+    <div class="row text-center">
+        <ul class="menu simple">
+            <li class="active"><a ng-click='setMoviesFromGenre("All")' >{{genres[genres.length - 1]}}</a></li>
+            <li ng-repeat='genre in genres | orderBy:"toString()"' ng-if='genre != "All"'><a ng-click='setMoviesFromGenre(genre)'>{{genre}}</a></li>
+        </ul>
+    </div>
+    <div id="gallery-view" class="row small-up-2 medium-up-4 large-up-6" data-equalizer data-equalize-by-row="true">
+        <div class="column" ng-repeat='imgName in imageNames'>
+            <a href="#"><img src="{{imgName}}"></img></a>
+        </div>
+    </div>
+</div>
