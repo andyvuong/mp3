@@ -1,13 +1,30 @@
 /* Sample Controller */
 
 app.controller('detailsController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+    $http.get('./data/imdb250.json').success(function(data) {
+        $scope.data = data;
+        $scope.dataObj = $scope.data[$routeParams.ind - 1];
+        $scope.ind = $routeParams.ind;
 
-    $scope.rank = $routeParams.rank;
+
+        $scope.leftInd = parseInt($scope.ind) - 1;
+        $scope.rightInd = parseInt($scope.ind) + 1;
+
+        if ($scope.leftInd < 1) {
+            $scope.leftInd = $scope.ind;
+        }
+
+        if ($scope.rightInd > $scope.data.length) {
+            $scope.rightInd = $scope.ind;
+        }
+
+    }).error(function(err) {
+        console.log("Error occured loading the data.");
+    }); 
 
 }]);
 
-app.controller('listController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
-    
+app.controller('listController', ['$scope', '$http', '$location', function($scope, $http, $location) {
 
     /**
      * Function called by the filter listener. Filters out the results based on the user text input.
@@ -50,8 +67,8 @@ app.controller('listController', ['$scope', '$http', '$routeParams', function($s
         }
     };
 
-    /**
-     * Sets the predicate for ordering the movies if the toggle is changed. 
+    /** 
+     * Sets the predicate for ordering the movies if the toggle is changed (used on click).
      */
     $scope.goOrderBy = function(value) {
         if (value === 'ascending') {
@@ -62,6 +79,14 @@ app.controller('listController', ['$scope', '$http', '$routeParams', function($s
             $scope.predicate = '+' + $scope.predicate.substr(1);
         }
     };
+
+    // go to the detail view
+    $scope.goToMovieDetail = function(id) {
+        console.log(id);
+        var path = '/details/'+id;
+        console.log(path);
+        $location.path('/details/'+id);
+    }
 
     // load data
     $http.get('./data/imdb250.json').success(function(data) {
@@ -90,13 +115,13 @@ app.controller('listController', ['$scope', '$http', '$routeParams', function($s
 }]);
 
 
-app.controller('galleryController', ['$scope', '$http', function($scope, $http) {
+app.controller('galleryController', ['$scope', '$http', '$location', function($scope, $http, $location) {
 
     // load data
     $http.get('./data/imdb250.json').success(function(data) {
         $scope.data = data;
         $scope.genres = getGenres(data); 
-        $scope.imageNames = getAllImageNames(data);
+        $scope.imageNames = getAllImageData(data);
     }).error(function(err) {
         console.log("Error occured loading the data.");
     }); 
@@ -121,10 +146,14 @@ app.controller('galleryController', ['$scope', '$http', function($scope, $http) 
     /**
      * Processes the JSON file and returns list of all the json ids.
      */
-    function getAllImageNames(data) {
+    function getAllImageData(data) {
         var names = [];
         for (var i = 0; i < data.length; i++) {
-            names.push('./data/images/' + data[i].imdbID + '.jpg');
+            var imageObj = {
+                "imgName": './data/images/' + data[i].imdbID + '.jpg',
+                "rank": data[i].rank
+            }
+            names.push(imageObj);
         }
         return names;
     }
@@ -135,15 +164,19 @@ app.controller('galleryController', ['$scope', '$http', function($scope, $http) 
     function getImageNamesFromGenre(data, name) {
         var names = [];
         for (var i = 0; i < data.length; i++) {
-            if (data[i].genre.indexOf(name) != -1) {
-                names.push('./data/images/' + data[i].imdbID + '.jpg');    
+            if (data[i].genre.indexOf(name) != -1) { 
+                var imageObj = {
+                    "imgName": './data/images/' + data[i].imdbID + '.jpg',
+                    "rank": data[i].rank
+                }
+                names.push(imageObj);  
             }
         }
         return names;
     };
 
     /**
-     * Sets the imageNames scope object to a list containing all the movies with the provided genreName
+     * Sets the imageNames scope object to a list containing all the movies with the provided genreName (used on click).
      */
     $scope.setMoviesFromGenre = function(genreName) {
         if (genreName == "All") {
@@ -153,6 +186,14 @@ app.controller('galleryController', ['$scope', '$http', function($scope, $http) 
             $scope.imageNames = getImageNamesFromGenre($scope.data, genreName);
         }
     };
+
+    // go to the detail view
+    $scope.goToMovieDetail = function(id) {
+        console.log(id);
+        var path = '/details/'+id;
+        console.log(path);
+        $location.path('/details/'+id);
+    }
 
 }]);
 

@@ -7,11 +7,11 @@ app.config(function ($routeProvider) {
             templateUrl : 'partials/gallery.html', // inserts this partial into the ngview
             controller : 'galleryController'
         })
-        .when('/list/:rank', {
+        .when('/list', {
             templateUrl : 'partials/list.html', // inserts this partial into the ngview
             controller : 'listController'
         })
-        .when('/details', {
+        .when('/details/:ind', {
             templateUrl : 'partials/details.html', // inserts this partial into the ngview
             controller : 'detailsController'
         })

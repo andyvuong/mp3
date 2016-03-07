@@ -7,8 +7,8 @@
         </ul>
     </div>
     <div id="gallery-view" class="row small-up-2 medium-up-4 large-up-6" data-equalizer data-equalize-by-row="true">
-        <div class="column" ng-repeat='imgName in imageNames'>
-            <a href="#"><img src="{{imgName}}"></img></a>
+        <div class="column" ng-repeat='imgObj in imageNames'>
+            <a ng-click="goToMovieDetail(imgObj.rank)"><img src="{{imgObj.imgName}}"></img></a>
         </div>
     </div>
 </div>

@@ -1,0 +1,45 @@
+<div ng-controller='detailsController'> 
+    <div id="detail-view" class="row">
+        <div class="media-object">
+            <div class="media-object-section">
+                <div class="thumbnail">
+                    <img src="./data/images/{{dataObj.imdbID}}.jpg">
+                </div>
+            </div>                
+            <div id="info" class="media-object-section">
+                
+                <h3>{{dataObj.title}}</h3>
+                <p>{{dataObj.plot}}</p>
+                <ul class="menu vertical">
+                    <li><strong>Directed by</strong>: {{dataObj.director.join(', ')}}</li>
+                    <li><strong>Starring:</strong> {{dataObj.actors.join(', ')}}</li>
+                    <li><strong>Awards:</strong> {{dataObj.awards}}</li>
+                    <br>
+                    <li><strong>Released:</strong> {{dataObj.released}}</li>
+                    <li><strong>Country:</strong> {{dataObj.country.join(', ')}}</li>
+                    <li><strong>Language:</strong> {{dataObj.language.join(', ')}}</li>
+                    <br>
+                    <li><strong>Genre:</strong> {{dataObj.genre.join(', ')}}</li>
+                </ul>
+            </div>
+            <div class="media-object-section">
+                <div id="stats"></div>
+                <ul class="menu vertical">
+                    <li><i class="fa fa-star"></i> <strong>Rank:</strong> {{dataObj.rank}}</li>
+                    <li><i class="fa fa-star"></i> <strong>Rating:</strong> {{dataObj.imdbRating}}</li>
+                    <li><i class="fa fa-star"></i> <strong>Votes:</strong> {{dataObj.imdbVotes}}</li>
+                    <li><i class="fa fa-star"></i> <strong>Rated:</strong> {{dataObj.rated}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center">
+        <br><br>
+        <div class="small-6 medium-6 large-6 columns">
+            <a href="#/details/{{leftInd}}"><i class="fa fa-chevron-left fa-4x"></i></a>
+        </div>
+        <div class="small-6 medium-6 large-6 columns">
+            <a href="#/details/{{rightInd}}"><i class="fa fa-chevron-right fa-4x"></i></a>
+        </div>
+    </div>
+</div>

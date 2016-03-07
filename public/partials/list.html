@@ -1,4 +1,3 @@
-
 <div ng-controller='listController'> 
     <div id="list-ui" class="row text-center">
         <label>Search:
@@ -18,10 +17,10 @@
         </label>
     </div>
     <div id="list-view" class="row">
-        <div class="media-object" ng-repeat='data in results | orderBy: predicate : reverse'>
+        <div class="media-object" ng-repeat='data in results | orderBy: predicate : reverse' ng-click='goToMovieDetail(data.rank)'>
             <div class="media-object-section">
                 <div class="thumbnail">
-                    <img src= "{{data.img}}">
+                    <img src= "{{data.img}}"/>
                 </div>
             </div>
             <div class="media-object-section">
@@ -29,10 +28,7 @@
                 <ul class="menu vertical">
                     <li>Rank: {{data.rank}}</li>
                     <li>Rated: {{data.rated}}</li>
-                </ul>
-                <ul class="menu simple">
-                    <li>Genres:</li>
-                    <li ng-repeat="genre in data.genre">{{genre}}</li>
+                    <li>Genre: {{data.genre.join(', ')}}</li>
                 </ul>
             </div>
         </div>
