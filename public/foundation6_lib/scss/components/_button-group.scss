@@ -36,8 +36,10 @@ $buttongroup-expand-max: 6 !default;
     margin: 0;
     font-size: inherit;
 
-    &:not(:last-child) {
+    & {
       border-#{$global-right}: $buttongroup-spacing solid $body-background;
+      border-#{$global-left}: $buttongroup-spacing solid $body-background;
+      border-bottom: $buttongroup-spacing solid $body-background;
     }
   }
 }

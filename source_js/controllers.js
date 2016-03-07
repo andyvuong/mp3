@@ -1,6 +1,6 @@
 /* Sample Controller */
 
-app.controller('detailsController', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+app.controller('detailsController', ['$scope', '$http', '$routeParams', '$location', function($scope, $http, $routeParams, $location) {
     $http.get('./data/imdb250.json').success(function(data) {
         $scope.data = data;
         $scope.dataObj = $scope.data[$routeParams.ind - 1];
@@ -10,6 +10,7 @@ app.controller('detailsController', ['$scope', '$http', '$routeParams', function
         $scope.leftInd = parseInt($scope.ind) - 1;
         $scope.rightInd = parseInt($scope.ind) + 1;
 
+        // set the left and right arrow path variables
         if ($scope.leftInd < 1) {
             $scope.leftInd = $scope.ind;
         }
@@ -18,13 +19,24 @@ app.controller('detailsController', ['$scope', '$http', '$routeParams', function
             $scope.rightInd = $scope.ind;
         }
 
+        // add listener
+        $scope.$watch('ind', $scope.changeLoc, true);
+
     }).error(function(err) {
         console.log("Error occured loading the data.");
     }); 
 
+    // redirect user if they hit an invalid parameter
+    $scope.changeLoc = function() {
+        if ($scope.ind < 1 || $scope.ind > $scope.data.length) {
+            $location.path('/gallery');
+        }
+    }
+
+
 }]);
 
-app.controller('listController', ['$scope', '$http', '$location', function($scope, $http, $location) {
+app.controller('listController', ['$scope', '$http', '$location', '$timeout', function($scope, $http, $location, $timeout) {
 
     /**
      * Function called by the filter listener. Filters out the results based on the user text input.
@@ -75,16 +87,13 @@ app.controller('listController', ['$scope', '$http', '$location', function($scop
             $scope.predicate = '-' + $scope.predicate.substr(1);
         }
         else if (value === 'descending') {
-            console.log("yes");
             $scope.predicate = '+' + $scope.predicate.substr(1);
         }
     };
 
     // go to the detail view
     $scope.goToMovieDetail = function(id) {
-        console.log(id);
         var path = '/details/'+id;
-        console.log(path);
         $location.path('/details/'+id);
     }
 
@@ -92,9 +101,14 @@ app.controller('listController', ['$scope', '$http', '$location', function($scop
     $http.get('./data/imdb250.json').success(function(data) {
         $scope.data = data;
 
+
         // add listeners
         $scope.$watch('query', $scope.filterResults, true);
         $scope.$watch('sortSelection', $scope.setSortBy, true);
+        
+        $timeout(function() {
+            angular.element('#ascendingButton').trigger('click');
+        }, 100);
 
     }).error(function(err) {
         console.log("Error occured loading the data.");
@@ -180,7 +194,7 @@ app.controller('galleryController', ['$scope', '$http', '$location', function($s
      */
     $scope.setMoviesFromGenre = function(genreName) {
         if (genreName == "All") {
-            $scope.imageNames = getAllImageNames($scope.data);
+            $scope.imageNames = getAllImageData($scope.data);
         }
         else {
             $scope.imageNames = getImageNamesFromGenre($scope.data, genreName);
@@ -189,9 +203,7 @@ app.controller('galleryController', ['$scope', '$http', '$location', function($s
 
     // go to the detail view
     $scope.goToMovieDetail = function(id) {
-        console.log(id);
         var path = '/details/'+id;
-        console.log(path);
         $location.path('/details/'+id);
     }
 

@@ -2,10 +2,25 @@ h1, h2, h3, h4, h5, h6, p, a, li, label {
     font-family: $primary-font;
 }
 
+#view-menu {
+    font-size: 1.35em; 
+
+    .expanded {
+        width: 55%;
+        @include set-margin-sides();
+    }
+}
+
+#genre-menu {
+    .button-group {
+        width: 75%;
+        @include set-margin-sides();
+    }
+}
+
 #gallery-view {
     img {
-        width: 180px;
-        height: 255px;
+        @include wh(180px, 255px);
     }
 
     img:hover {
@@ -22,14 +37,12 @@ h1, h2, h3, h4, h5, h6, p, a, li, label {
 #detail-view {
 
     img {
-        width: 268px;
-        height: 380px;
+        @include wh(268px, 380px);
     }   
 
     .media-object {
         width: 90%;
-        margin-left: auto;
-        margin-right: auto;
+        @include set-margin-sides();
     }
 
     p, h3, #info {
@@ -43,8 +56,7 @@ h1, h2, h3, h4, h5, h6, p, a, li, label {
 
 #list-view {
     img {
-        width: 120px;
-        height: 163px;
+        @include wh(120px, 163px);
     }
 
     .media-object-section {
@@ -54,8 +66,7 @@ h1, h2, h3, h4, h5, h6, p, a, li, label {
 
     .media-object {
         width: 60%;
-        margin-left: auto;
-        margin-right: auto;
+        @include set-margin-sides();
     }
 
     .media-object:hover {
@@ -64,11 +75,30 @@ h1, h2, h3, h4, h5, h6, p, a, li, label {
     }
 }
 
+@media screen and (max-width: 39.9375em) {
+    #list-view {
+        .media-object {
+            width: 90%;
+            @include set-margin-sides();
+        }
+    }
+
+    #list-ui {
+        label {
+            width: 90% !important;
+        }
+
+        fieldset label {
+            width: 100% !important;
+        }
+    }
+}
+
+
 #list-ui {
     label {
         width: 40%;
-        margin-left: auto;
-        margin-right: auto;
+        @include set-margin-sides();
     }
 
     fieldset label {
@@ -77,8 +107,4 @@ h1, h2, h3, h4, h5, h6, p, a, li, label {
         width: 20%;
     }
 
-}
-
-.active {
-    background: #B8C99D;
 }
