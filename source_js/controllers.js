@@ -106,6 +106,7 @@ app.controller('listController', ['$scope', '$http', '$location', '$timeout', fu
         $scope.$watch('query', $scope.filterResults, true);
         $scope.$watch('sortSelection', $scope.setSortBy, true);
         
+        // fix for clicking the button
         $timeout(function() {
             angular.element('#ascendingButton').trigger('click');
         }, 100);

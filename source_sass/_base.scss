@@ -1,5 +1,15 @@
+body {
+    background: #b4debe;
+}
+
 h1, h2, h3, h4, h5, h6, p, a, li, label {
     font-family: $primary-font;
+    color: #474747;
+}
+
+h1 {
+    font-size: 3.2em;
+    color: #e8175d;
 }
 
 #view-menu {
@@ -24,7 +34,7 @@ h1, h2, h3, h4, h5, h6, p, a, li, label {
     }
 
     img:hover {
-        border: 4px solid #B8C99D; 
+        border: 4px solid #E2F7CE; 
         cursor: pointer;
     }
 
@@ -70,7 +80,7 @@ h1, h2, h3, h4, h5, h6, p, a, li, label {
     }
 
     .media-object:hover {
-        background: #B8C99D;
+        background: #E2F7CE;
         cursor: pointer;
     }
 }
@@ -107,4 +117,15 @@ h1, h2, h3, h4, h5, h6, p, a, li, label {
         width: 20%;
     }
 
+}
+
+.button {
+    background: #595B5A !important;
+}
+
+hr {
+    border-top: 1px solid white;
+    border-color: white;
+    background-color: white;
+    color: white;
 }
